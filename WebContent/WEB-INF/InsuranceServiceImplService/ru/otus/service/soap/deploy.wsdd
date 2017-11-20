@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from InsuranceServiceImplService WSDL service -->
+
+  <service name="InsuranceServiceImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://soap.service.otus.ru"/>
+      <parameter name="wsdlServiceElement" value="InsuranceServiceImplService"/>
+      <parameter name="schemaQualified" value="http://soap.service.otus.ru"/>
+      <parameter name="wsdlServicePort" value="InsuranceServiceImpl"/>
+      <parameter name="className" value="ru.otus.service.soap.InsuranceServiceImpl"/>
+      <parameter name="wsdlPortType" value="InsuranceServiceImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://soap.service.otus.ru" name="login" qname="operNS:login" soapAction="">
+        <parameter xmlns:pns="http://soap.service.otus.ru" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:login" type="tns:string"/>
+        <parameter xmlns:pns="http://soap.service.otus.ru" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.service.otus.ru" xmlns:retNS="http://soap.service.otus.ru" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="calculate" qname="operNS:calculate" returnQName="retNS:calculateReturn" returnType="rtns:decimal" soapAction="">
+        <parameter xmlns:pns="http://soap.service.otus.ru" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:fullName" type="tns:string"/>
+        <parameter xmlns:pns="http://soap.service.otus.ru" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:age" type="tns:int"/>
+        <parameter xmlns:pns="http://soap.service.otus.ru" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:isCredit" type="tns:boolean"/>
+      </operation>
+      <parameter name="allowedMethods" value="calculate login"/>
+
+  </service>
+</deployment>
